@@ -14,6 +14,7 @@ class Bit extends StatelessWidget {
     //material app is a root app
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: 'Merriweather'),
       home: InitialScreen(),
     );
   }
