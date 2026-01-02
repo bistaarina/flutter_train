@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:bit_learning/screens/next_page.dart';
-import 'package:bit_learning/widgets/custom_button.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,12 +27,11 @@ class _HomePageState extends State<HomePage> {
     'Featured',
     'New Arrivals',
     'Recommended',
+    'Recommended',
   ];
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-
     //
     return Scaffold(
       //refernce web
@@ -68,45 +65,25 @@ class _HomePageState extends State<HomePage> {
             spacing: 10,
             children: [
               SizedBox(
-                height: 200,
+                height: 40,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
+                  itemCount: category.length,
                   itemBuilder: (context, index) {
-                    return Text(
-                      'Popular',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.purple,
-                        fontSize: 18,
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        category[index],
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.purple,
+                          fontSize: 18,
+                        ),
                       ),
                     );
                   },
                 ),
               ),
-
-              Text(height.toString()),
-              CustomButton(
-                text: 'Bit',
-
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return NextPage();
-                      },
-                    ),
-                  );
-                },
-              ),
-              CustomButton(
-                text: 'Arina',
-                style: TextStyle(fontFamily: 'Merriweather'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              CustomButton(text: 'Class'),
 
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
