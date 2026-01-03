@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
       //refernce web
       // header --> appbar
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.purple,
 
         // leading: Icon(Icons.menu, color: Colors.white),
         centerTitle: true,
