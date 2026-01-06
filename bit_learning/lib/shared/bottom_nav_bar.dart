@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bit_learning/screens/home_screen.dart';
+import 'package:bit_learning/screens/product_des_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -10,10 +12,25 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int selectedIndex = 0;
   final List<Widget> pages = [
-    Container(color: Colors.redAccent),
-    Container(color: Colors.greenAccent),
-    Container(color: Colors.blueAccent),
-    Container(color: Colors.yellowAccent),
+    HomePage(),
+    ProductDesScreen(
+      title: 'Calendar',
+      rating: '4.5',
+      img: 'https://example.com/calendar.jpg',
+      desc: 'Calendar page placeholder.',
+    ),
+    ProductDesScreen(
+      title: 'Search',
+      rating: '4.0',
+      img: 'https://example.com/search.jpg',
+      desc: 'Search page placeholder.',
+    ),
+    ProductDesScreen(
+      title: 'Profile',
+      rating: '4.2',
+      img: 'https://example.com/profile.jpg',
+      desc: 'Profile page placeholder.',
+    ),
   ];
   @override
   Widget build(BuildContext context) {
@@ -55,7 +72,7 @@ class CustomBottomNavBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(35),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
+            color: Colors.black.withOpacity(0.1),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),

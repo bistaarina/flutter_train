@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bit_learning/screens/initial_screen.dart';
-//import 'package:bit_learning/shared/bottom_nav_bar.dart';
+import 'package:bit_learning/shared/bottom_nav_bar.dart';
 
 void main() {
   runApp(Bit());
@@ -15,7 +14,7 @@ class Bit extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Merriweather'),
-      home: InitialScreen(),
+      home: BottomNavBar(),
     );
   }
 }

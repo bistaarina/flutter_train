@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:bit_learning/screens/product_des_screen.dart';
+import 'package:bit_learning/widgets/custom_travel_card.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,42 +11,91 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Boolean variable to control shape change
-  // false → shape will be circle
-  // true → shape will be rectangle
-  bool isChangedShape = false;
-
-  // Variable to store number of shapes
-  // Starts with 1 shape
-  int count = 1;
-
-  // Variable to store number value
-  // Used for displaying text multiple times
-  int numer = 0;
-
   final List<String> category = [
     'All',
     'Popular',
     'Featured',
     'New Arrivals',
     'Recommended',
-    'Recommended',
   ];
+
+  int selectedCategoryIndex = 0;
+
+  final List<Map<String, String>> travelDetails = [
+    {
+      'title': 'Northern Hills',
+      'rating': '4.5',
+      'img':
+          'https://media.istockphoto.com/id/904172104/photo/weve-made-it-all-this-way-i-am-proud.jpg?s=612x612&w=0&k=20&c=MewnsAhbeGRcMBN9_ZKhThmqPK6c8nCT8XYk5ZM_hdg=',
+      'desc':
+          'The Northern Hills offer breathtaking landscapes with rolling green mountains, peaceful trails, and fresh, crisp air. Visitors can enjoy hiking, photography, and exploring local villages while experiencing the serene natural environment. It is an ideal destination for those seeking adventure, relaxation, and an escape from city life.',
+    },
+    {
+      'title': 'Lakeside View',
+      'rating': '4.8',
+      'img':
+          'https://t3.ftcdn.net/jpg/03/01/84/54/360_F_301845445_Aj4iICMuzOfFkKW0U43l4aFAo05HZxIZ.jpg',
+      'desc':
+          'Lakeside View is a serene destination featuring calm waters surrounded by lush greenery and majestic mountains. Perfect for boating, fishing, or peaceful reflection, it offers a relaxing retreat. Travelers can enjoy picnics, sunrise views, and capturing stunning photographs, making it an unforgettable and peaceful experience in nature.',
+    },
+    {
+      'title': 'Mountain Escape',
+      'rating': '4.3',
+      'img':
+          'https://assets.bucketlistly.blog/sites/5adf778b6eabcc00190b75b1/content_entry5b155bed5711a8176e9f9783/5c4fbe2246025317508def41/files/nepal-everest-base-camp-everest-travel-photo-20190128094442660-main-image.jpg',
+      'desc':
+          'Mountain Escape is perfect for adventure seekers who love trekking, climbing, and breathtaking panoramic views. Towering peaks, challenging trails, and fresh mountain air provide an exhilarating experience. Visitors can explore local villages, wildlife, and enjoy camping under the stars, making it an unforgettable journey into the heart of nature and adventure.',
+    },
+    {
+      'title': 'Desert Adventure',
+      'rating': '4.6',
+      'img':
+          'https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=800&q=60',
+      'desc':
+          'Desert Adventure takes you across endless golden sands with rolling dunes and dramatic landscapes. Visitors can enjoy camel rides, sunset views, stargazing, and photography. The unique environment offers a chance to experience silence, adventure, and the beauty of nature in its raw form. It is ideal for thrill seekers and explorers.',
+    },
+    {
+      'title': 'Tropical Paradise',
+      'rating': '4.7',
+      'img':
+          'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=60',
+      'desc':
+          'Tropical Paradise is a lush, vibrant destination filled with exotic plants, sandy beaches, and crystal-clear waters. Visitors can relax in hammocks, swim, snorkel, or explore hidden trails. The warm climate, colorful wildlife, and serene environment make it an ideal spot for relaxation, photography, and reconnecting with nature.',
+    },
+    {
+      'title': 'City Lights',
+      'rating': '4.4',
+      'img':
+          'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=60',
+      'desc':
+          'City Lights offers a lively urban experience with sparkling skyscrapers, vibrant nightlife, and cultural attractions. Visitors can enjoy shopping, dining, entertainment, and city tours. The blend of modern architecture and historic sites provides a unique experience. It is perfect for travelers seeking excitement, adventure, and memorable cityscapes.',
+    },
+    {
+      'title': 'Forest Retreat',
+      'rating': '4.9',
+      'img':
+          'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=60',
+      'desc':
+          'Forest Retreat is a peaceful sanctuary surrounded by dense woodlands, wildlife, and natural streams. Visitors can hike, camp, or simply relax amid the calming sounds of nature. Perfect for meditation, photography, and reconnecting with the environment, this retreat provides a refreshing escape from the hustle of city life and everyday stress.',
+    },
+  ];
+
+  final PageController _pageController = PageController(viewportFraction: 0.85);
+  int currentPage = 0;
+
+  final bool screenWidth = true;
 
   @override
   Widget build(BuildContext context) {
-    //
     return Scaffold(
       //refernce web
       // header --> appbar
       appBar: AppBar(
-        backgroundColor: Colors.purple,
-
-        // leading: Icon(Icons.menu, color: Colors.white),
+        leading: Icon(Icons.menu),
         centerTitle: true,
         title: Text(
           'Discover',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
         ),
         actions: [
           Padding(
@@ -61,356 +113,149 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(10.0),
 
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            spacing: 10,
             children: [
+              const SizedBox(height: 15),
               SizedBox(
-                height: 40,
+                height: 35,
                 child: ListView.builder(
+                  padding: EdgeInsets.zero,
                   scrollDirection: Axis.horizontal,
                   itemCount: category.length,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        category[index],
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.purple,
-                          fontSize: 18,
+                    final isSelected = selectedCategoryIndex == index;
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedCategoryIndex = index;
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          category[index],
+                          style: TextStyle(
+                            fontWeight: isSelected
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color: isSelected ? Color(0xFF403A7A) : Colors.grey,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                     );
                   },
                 ),
               ),
-
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  spacing: 10,
-                  children: [
-                    Container(
-                      height: 200,
-                      width: 300,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/img.jpg"),
-                          fit: BoxFit.cover,
-                        ),
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(20),
+              const SizedBox(height: 20),
+              SizedBox(
+                height: 250,
+                child: PageView.builder(
+                  padEnds: false,
+                  controller: _pageController,
+                  itemCount: travelDetails.length,
+                  onPageChanged: (index) {
+                    setState(() => currentPage = index);
+                  },
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: CustomTravelCard(
+                        isGrid: false,
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ProductDesScreen(
+                                title: travelDetails[index]['title']!,
+                                rating: travelDetails[index]['rating']!,
+                                img: travelDetails[index]['img']!,
+                                desc: travelDetails[index]["desc"]!,
+                              ),
+                            ),
+                          );
+                        },
+                        title: travelDetails[index]['title']!,
+                        rating: travelDetails[index]['rating']!,
+                        img: travelDetails[index]['img']!,
                       ),
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          height: 80,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.black.withValues(alpha: 0.3),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 8,
-                                  horizontal: 20,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Northern Mountain',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 24,
-                                      ),
-                                    ),
-
-                                    Container(
-                                      width: 25,
-                                      height: 25,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Icon(
-                                        Icons.favorite,
-                                        color: Colors.red,
-                                        size: 16,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                ),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                      size: 16,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                      size: 16,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                      size: 16,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                      size: 16,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                      size: 16,
-                                    ),
-                                    SizedBox(width: 8),
-                                    Text(
-                                      "4.5",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 15),
+              SmoothPageIndicator(
+                controller: _pageController,
+                count: travelDetails.length,
+                effect: WormEffect(
+                  dotHeight: 8,
+                  dotWidth: 8,
+                  activeDotColor: Color(0xFF403A7A),
+                ),
+              ),
+              const SizedBox(height: 25),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Recommended',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
                       ),
                     ),
-
-                    Container(
-                      height: 200,
-                      width: 300,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/img.jpg"),
-                          fit: BoxFit.cover,
-                        ),
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          height: 80,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.black.withValues(alpha: 0.3),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 8,
-                                  horizontal: 20,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Northern Mountain',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 24,
-                                      ),
-                                    ),
-
-                                    Container(
-                                      width: 25,
-                                      height: 25,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Icon(
-                                        Icons.favorite,
-                                        color: Colors.red,
-                                        size: 16,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                ),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                      size: 16,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                      size: 16,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                      size: 16,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                      size: 16,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                      size: 16,
-                                    ),
-                                    SizedBox(width: 8),
-                                    Text(
-                                      "4.5",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        'View All',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF403A7A),
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-
-              // SizedBox(height: 100),
-              // Container(
-              //   height: 100,
-              //   width: 100,
-
-              //   decoration: BoxDecoration(
-              //     color: Colors.green,
-              //     borderRadius: BorderRadius.all(Radius.circular(10)),
-              //   ),
-              // ),
-              // SingleChildScrollView allows scrolling
-              // Here it is used for horizontal scrolling
-              // SingleChildScrollView(
-              //   // Scroll direction is set to horizontal
-              //   scrollDirection: Axis.horizontal,
-
-              //   child: Row(
-              //     // Space between each container
-              //     spacing: 10,
-
-              //     children: [
-              //       // Loop to create multiple containers
-              //       // Number of containers depends on 'count'
-              //       for (int i = 0; i < count; i++)
-              //         Container(
-              //           // Height of each shape
-              //           height: 100,
-
-              //           // Width of each shape
-              //           width: 100,
-
-              //           decoration: BoxDecoration(
-              //             // Change shape based on isChangedShape value
-              //             // If true → rectangle
-              //             // If false → circle
-              //             shape: isChangedShape
-              //                 ? BoxShape.rectangle
-              //                 : BoxShape.circle,
-
-              //             // Color of the shape
-              //             color: Colors.yellow,
-              //           ),
-              //         ),
-              //     ],
-              //   ),
-              // ),
-
-              // // Image.asset("assets/img.png", height: 200),
-
-              // //for text
-              // Text("fsdf"),
-              // Icon(Icons.add),
-              // // Button with background color (Elevated button)
-              // ElevatedButton(
-              //   onPressed: () {
-              //     setState(() {
-              //       // Change the value of isChangedShape
-              //       // If it is true, make it false
-              //       // If it is false, make it true
-              //       isChangedShape = !isChangedShape;
-              //     });
-              //   },
-              //   // Text shown on the button
-              //   child: Text("Change Shape"),
-              // ),
-
-              // // Loop to show text multiple times
-              // // It will display the value of 'numer' as text
-              // // The text will repeat 'numer' times
-              // for (int i = 0; i < numer; i++) Text(numer.toString()),
-
-              // // Button with border only (Outlined button)
-              // OutlinedButton(
-              //   onPressed: () {
-              //     setState(() {
-              //       // Increase the count value by 1
-              //       // Used to add more shapes
-              //       count++;
-              //     });
-              //   },
-              //   // Text shown on the button
-              //   child: Text("Add Shape"),
-              // ),
-
-              // // Simple text button (no background or border)
-              // TextButton(
-              //   onPressed: () {
-              //     setState(() {
-              //       // Increase the numer value by 1
-              //       // This will increase the number of texts shown
-              //       numer++;
-              //     });
-              //   },
-              //   // Text shown on the button
-              //   child: Text("Text button"),
-              // ),
-
-              //Container, Column /Row, Basic UI Widgets: Text, Image, Icon, SizedBox, Padding, Button (Elevated,Text, Outline)
-              // Column(
-              //   spacing: 10,
-              //   children: [
-
-              //   ],
-              // ),
-
-              //reuseable
-              //grid widget
-              //list widget
+              const SizedBox(height: 15),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                    childAspectRatio: 0.85,
+                  ),
+                  itemCount: travelDetails.length,
+                  itemBuilder: (context, index) {
+                    return CustomTravelCard(
+                      title: travelDetails[index]['title']!,
+                      rating: travelDetails[index]['rating']!,
+                      img: travelDetails[index]['img']!,
+                      height: 200,
+                      width: double.infinity,
+                      isGrid: true,
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ProductDesScreen(
+                              title: travelDetails[index]['title']!,
+                              rating: travelDetails[index]['rating']!,
+                              img: travelDetails[index]['img']!,
+                              desc: travelDetails[index]["desc"]!,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -418,4 +263,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-// ? :
