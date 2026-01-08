@@ -30,50 +30,35 @@ class CustomTravelCard extends StatelessWidget {
           image: DecorationImage(image: NetworkImage(img), fit: BoxFit.cover),
           color: Colors.red,
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.15),
-              blurRadius: 8,
-              offset: Offset(0, 4),
-            ),
-          ],
         ),
         child: Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-            height: isGrid ? 60 : 80,
+            height: isGrid ? 50 : 70,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.6),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-              ),
+              color: Colors.black.withValues(alpha: 0.5),
+              borderRadius: BorderRadius.circular(isGrid ? 16 : 20),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        child: Text(
-                          title,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: isGrid ? 14 : 20,
-                          ),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: isGrid ? 16 : 24,
                         ),
                       ),
-                      SizedBox(width: 8),
+
                       Container(
-                        width: isGrid ? 20 : 28,
-                        height: isGrid ? 20 : 28,
+                        width: isGrid ? 15 : 25,
+                        height: isGrid ? 15 : 25,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.circle,
@@ -81,7 +66,7 @@ class CustomTravelCard extends StatelessWidget {
                         child: Icon(
                           Icons.favorite,
                           color: Colors.red,
-                          size: isGrid ? 10 : 14,
+                          size: isGrid ? 10 : 16,
                         ),
                       ),
                     ],
@@ -93,16 +78,17 @@ class CustomTravelCard extends StatelessWidget {
                           i <= double.parse(rating)
                               ? Icons.star
                               : Icons.star_border,
-                          color: Colors.amber,
-                          size: isGrid ? 12 : 16,
+                          color: Colors.yellow,
+                          size: isGrid ? 10 : 16,
                         ),
-                      const SizedBox(width: 6),
+
+                      const SizedBox(width: 8),
                       Text(
                         rating,
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: isGrid ? 12 : 14,
+                          fontSize: isGrid ? 14 : 18,
                         ),
                       ),
                     ],

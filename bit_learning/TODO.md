@@ -1,0 +1,3 @@
+- [x] Update gradient colors in bottom_nav_bar.dart to teal-to-cyan
+- [x] Change selected icon color to yellowAccent
+- [x] Change indicator color to yellowAccent

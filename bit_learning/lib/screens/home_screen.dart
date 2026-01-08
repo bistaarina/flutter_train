@@ -17,6 +17,7 @@ class _HomePageState extends State<HomePage> {
     'Featured',
     'New Arrivals',
     'Recommended',
+    'Recommended',
   ];
 
   int selectedCategoryIndex = 0;
@@ -49,8 +50,7 @@ class _HomePageState extends State<HomePage> {
     {
       'title': 'Desert Adventure',
       'rating': '4.6',
-      'img':
-          'https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=800&q=60',
+      'img': 'https://www.bsr.org/images/heroes/bsr-travel-hero..jpg',
       'desc':
           'Desert Adventure takes you across endless golden sands with rolling dunes and dramatic landscapes. Visitors can enjoy camel rides, sunset views, stargazing, and photography. The unique environment offers a chance to experience silence, adventure, and the beauty of nature in its raw form. It is ideal for thrill seekers and explorers.',
     },
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
       //refernce web
       // header --> appbar
       appBar: AppBar(
-        leading: Icon(Icons.menu),
+        leading: Image.asset('assets/fi_menu.png'),
         centerTitle: true,
         title: Text(
           'Discover',
@@ -113,10 +113,10 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(10.0),
 
           child: Column(
+            spacing: 10,
             children: [
-              const SizedBox(height: 15),
               SizedBox(
-                height: 35,
+                height: 20,
                 child: ListView.builder(
                   padding: EdgeInsets.zero,
                   scrollDirection: Axis.horizontal,
@@ -130,15 +130,17 @@ class _HomePageState extends State<HomePage> {
                         });
                       },
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: const EdgeInsets.only(left: 7.0),
                         child: Text(
                           category[index],
                           style: TextStyle(
                             fontWeight: isSelected
                                 ? FontWeight.bold
                                 : FontWeight.normal,
-                            color: isSelected ? Color(0xFF403A7A) : Colors.grey,
-                            fontSize: 16,
+                            color: isSelected
+                                ? Color(0xFF403A7A)
+                                : Colors.black,
+                            fontSize: 18,
                           ),
                         ),
                       ),
@@ -146,9 +148,8 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
-              const SizedBox(height: 20),
               SizedBox(
-                height: 250,
+                height: 200,
                 child: PageView.builder(
                   padEnds: false,
                   controller: _pageController,
@@ -158,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.only(right: 15),
+                      padding: const EdgeInsets.only(right: 10),
                       child: CustomTravelCard(
                         isGrid: false,
                         onTap: () {
@@ -181,7 +182,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
-              const SizedBox(height: 15),
+
               SmoothPageIndicator(
                 controller: _pageController,
                 count: travelDetails.length,
@@ -191,44 +192,27 @@ class _HomePageState extends State<HomePage> {
                   activeDotColor: Color(0xFF403A7A),
                 ),
               ),
-              const SizedBox(height: 25),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Recommended',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        'View All',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFF403A7A),
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Recommended',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  Text('View All'),
+                ],
               ),
-              const SizedBox(height: 15),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: GridView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                    childAspectRatio: 0.85,
+                    crossAxisCount: 2, //declear items to show
+                    crossAxisSpacing: 10, //give gap between horizontal
+                    mainAxisSpacing: 10, //give between vertical
+                    childAspectRatio: 175 / 180,
                   ),
                   itemCount: travelDetails.length,
                   itemBuilder: (context, index) {
@@ -236,8 +220,8 @@ class _HomePageState extends State<HomePage> {
                       title: travelDetails[index]['title']!,
                       rating: travelDetails[index]['rating']!,
                       img: travelDetails[index]['img']!,
-                      height: 200,
-                      width: double.infinity,
+                      height: 180,
+                      width: 175,
                       isGrid: true,
                       onTap: () {
                         Navigator.of(context).push(
@@ -255,7 +239,6 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
-              const SizedBox(height: 20),
             ],
           ),
         ),

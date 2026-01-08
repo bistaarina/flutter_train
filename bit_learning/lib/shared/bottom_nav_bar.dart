@@ -67,8 +67,11 @@ class CustomBottomNavBar extends StatelessWidget {
     return Container(
       height: 70,
       decoration: BoxDecoration(
-        color: Colors.white,
-
+        gradient: LinearGradient(
+          colors: [Colors.teal.shade400, Colors.cyan.shade400],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         borderRadius: BorderRadius.circular(35),
         boxShadow: [
           BoxShadow(
@@ -104,7 +107,7 @@ class CustomBottomNavBar extends StatelessWidget {
             child: Icon(
               icon,
               size: 26,
-              color: isSelected ? Colors.deepPurple : Colors.grey.shade400,
+              color: isSelected ? Colors.yellowAccent : Colors.white70,
             ),
           ),
           const SizedBox(height: 20),
@@ -113,7 +116,7 @@ class CustomBottomNavBar extends StatelessWidget {
               width: 20,
               height: 3,
               decoration: BoxDecoration(
-                color: Colors.deepPurple,
+                color: Colors.yellowAccent,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -122,3 +125,4 @@ class CustomBottomNavBar extends StatelessWidget {
     );
   }
 }
+
