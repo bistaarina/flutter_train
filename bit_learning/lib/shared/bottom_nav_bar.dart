@@ -38,7 +38,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       extendBody: true,
       body: pages[selectedIndex],
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+        padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
         child: CustomBottomNavBar(
           selectedIndex: selectedIndex,
           onTap: (index) {
@@ -125,4 +125,3 @@ class CustomBottomNavBar extends StatelessWidget {
     );
   }
 }
-
